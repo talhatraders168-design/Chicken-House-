@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chicken House Shop</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #fffaf0;
+            color: #333;
+            padding-bottom: 60px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #d32f2f, #b71c1c);
+            color: #fff;
+            padding: 30px 15px;
+            text-align: center;
+            border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .lang-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .lang-btn {
+            background: #fff;
+            border: 1px solid #d32f2f;
+            color: #d32f2f;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn.active, .lang-btn:hover {
+            background: #d32f2f;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .menu-title {
+            font-size: 18px;
+            margin: 15px 5px;
+            color: #555;
+            border-left: 4px solid #d32f2f;
+            padding-left: 8px;
+        }
+
+        .card {
+            background: #fff;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .item-info h3 {
+            font-size: 16px;
+            color: #222;
+            margin-bottom: 4px;
+        }
+
+        .item-info p {
+            font-size: 15px;
+            color: #e65100;
+            font-weight: bold;
+        }
+
+        .add-btn {
+            background: #ff9800;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(255,152,0,0.3);
+            transition: transform 0.1s ease;
+        }
+
+        .add-btn:active {
+            transform: scale(0.95);
+        }
+
+        .cart {
+            background: #222;
+            color: #fff;
+            padding: 20px;
+            border-radius: 20px;
+            margin-top: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .cart h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #444;
+            padding-bottom: 8px;
+        }
+
+        #cart {
+            list-style: none;
+            max-height: 150px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+        }
+
+        #cart li {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            font-size: 14px;
+            border-bottom: 1px dashed #333;
+        }
+
+        .total-price {
+            font-size: 18px;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .total-price span {
+            color: #4caf50;
+        }
+
+        .order-btn {
+            background: #25d366;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 14px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 8px rgba(37,211,102,0.3);
+        }
+
+        .order-btn:hover {
+            background: #20ba59;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Chicken House</h1>
+    <p id="tag">Fresh Chicken Shop</p>
+</header>
+
+<div class="container">
+    <div class="lang-container">
+        <button class="lang-btn active" id="btn-en" onclick="setLang('en')">English</button>
+        <button class="lang-btn" id="btn-bn" onclick="setLang('bn')">বাংলা</button>
+    </div>
+
+    <h2 class="menu-title" id="menuTitle">Our Menu</h2>
+
+    <div class="card">
+        <div class="item-info">
+            <h3 id="item1">Grilled Chicken</h3>
+            <p>$5.00</p>
+        </div>
+        <button class="add-btn" id="add1" onclick="addItem('Grilled Chicken', 5)">Add</button>
+    </div>
+
+    <div class="card">
+        <div class="item-info">
+            <h3 id="item2">Fried Chicken</h3>
+            <p>$4.00</p>
+        </div>
+        <button class="add-btn" id="add2" onclick="addItem('Fried Chicken', 4)">Add</button>
+    </div>
+
+    <div class="card">
+        <div class="item-info">
+            <h3 id="item3">Chicken Burger</h3>
+            <p>$3.00</p>
+        </div>
+        <button class="add-btn" id="add3" onclick="addItem('Chicken Burger', 3)">Add</button>
+    </div>
+
+    <div class="cart">
+        <h3 id="cartTitle">Your Cart</h3>
+        <ul id="cart"></ul>
+        <div class="total-price">
+            <span id="totalLabel">Total:</span>
+            <span>$<span id="total">0</span></span>
+        </div>
+        <button class="order-btn" id="orderBtn" onclick="orderNow()">
+            <!-- WhatsApp SVG Icon -->
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.4 0 11.948 0c3.173.001 6.154 1.24 8.396 3.486 2.241 2.247 3.475 5.23 3.473 8.403-.005 6.598-5.343 11.945-11.893 11.945-1.996-.001-3.959-.503-5.707-1.454L0 24zm6.59-4.846c1.66.986 3.294 1.493 5.34 1.495 5.4 0 9.79-4.386 9.794-9.789.002-2.618-1.015-5.08-2.865-6.934C17.007 1.97 14.545 1.03 11.946 1.03c-5.398 0-9.786 4.388-9.79 9.792-.001 2.079.549 4.11 1.595 5.894l-.99 3.614 3.702-.971c1.62.883 3.326 1.347 5.194 1.348zm11.758-7.942c-.328-.164-1.94-.959-2.242-1.069-.302-.11-.522-.164-.742.164-.22.328-.85 1.069-1.041 1.288-.192.219-.384.246-.712.082-1.064-.533-1.884-.982-2.622-2.248-.19-.325.19-.302.544-1.011.082-.164.041-.302-.021-.438-.062-.137-.522-1.26-.715-1.726-.188-.453-.38-.391-.522-.398-.135-.007-.29-.008-.445-.008-.154 0-.406.058-.619.288-.213.23-.812.794-.812 1.934 0 1.14 1.041 2.242 1.186 2.433.145.19 1.996 3.048 4.837 4.269 1.706.732 2.422.784 3.284.656.545-.082 1.94-.794 2.213-1.52.274-.726.274-1.349.192-1.48-.082-.131-.302-.213-.63-.377z"/></svg>
+            Order on WhatsApp
+        </button>
+    </div>
+</div>
+
+<script>
+let cart = [];
+let total = 0;
+let currentLang = 'en';
+
+const translations = {
+    en: {
+        tag: "Fresh Chicken Shop",
+        menuTitle: "Our Menu",
+        cartTitle: "Your Cart",
+        totalLabel: "Total:",
+        orderBtn: "Order on WhatsApp",
+        items: ["Grilled Chicken", "Fried Chicken", "Chicken Burger"],
+        add: "Add"
+    },
+    bn: {
+        tag: "তাজা চিকেন শপ",
+        menuTitle: "আমাদের মেনু",
+        cartTitle: "আপনার কার্ট",
+        totalLabel: "মোট:",
+        orderBtn: "হোয়াটসঅ্যাপে অর্ডার করুন",
+        items: ["গ্রিল চিকেন", "ফ্রাইড চিকেন", "চিকেন বার্গার"],
+        add: "যোগ করুন"
+    }
+};
+
+function addItem(name, price){
+    // Find the item base name to support dynamic language switching in cart
+    let baseName = name;
+    if (currentLang === 'bn') {
+        if (name === 'গ্রিল চিকেন') baseName = 'Grilled Chicken';
+        if (name === 'ফ্রাইড চিকেন') baseName = 'Fried Chicken';
+        if (name === 'চিকেন বার্গার') baseName = 'Chicken Burger';
+    }
+    
+    cart.push({ name: baseName, price: price });
+    total += price;
+    renderCart();
+}
+
+function renderCart(){
+    const cartList = document.getElementById("cart");
+    cartList.innerHTML = cart.map(item => {
+        let displayName = item.name;
+        if (currentLang === 'bn') {
+            if (item.name === 'Grilled Chicken') displayName = 'গ্রিল চিকেন';
+            if (item.name === 'Fried Chicken') displayName = 'ফ্রাইড চিকেন';
+            if (item.name === 'Chicken Burger') displayName = 'চিকেন বার্গার';
+        }
+        return `<li><span>${displayName}</span> <b>$${item.price}</b></li>`;
+    }).join("");
+    
+    document.getElementById("total").innerText = total;
+}
+
+function orderNow(){
+    if (cart.length === 0) {
+        alert(currentLang === 'bn' ? "আপনার কার্ট খালি!" : "Your cart is empty!");
+        return;
+    }
+    let phone = "8801XXXXXXXXX"; // তোমার হোয়াটসঅ্যাপ নাম্বার এখানে বসাও
+    
+    let itemLines = cart.map(item => {
+        let displayName = item.name;
+        if (currentLang === 'bn') {
+            if (item.name === 'Grilled Chicken') displayName = 'গ্রিল চিকেন';
+            if (item.name === 'Fried Chicken') displayName = 'ফ্রাইড চিকেন';
+            if (item.name === 'Chicken Burger') displayName = 'চিকেন বার্গার';
+        }
+        return `- ${displayName} ($${item.price})`;
+    }).join("%0A");
+
+    let intro = currentLang === 'bn' ? "হ্যালো, আমি অর্ডার করতে চাই:" : "Hello, I want to order:";
+    let totalText = currentLang === 'bn' ? "সর্বমোট" : "Total";
+    
+    let msg = `${intro}%0A${itemLines}%0A%0A${totalText}: $${total}`;
+    window.open("https://wa.me/"+phone+"?text="+msg, "_blank");
+}
+
+function setLang(lang){
+    currentLang = lang;
+    const t = translations[lang];
+    
+    // Update Text Content
+    document.getElementById("tag").innerText = t.tag;
